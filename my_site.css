@@ -259,7 +259,7 @@ footer .footer-content {
   background: #fff;
   z-index: 2000;
   right: 0;
-  margin-right: -50%;
+  margin-right: -20%;
   transition: 800ms ease;
   overflow-x: scroll;
 }
