@@ -263,6 +263,7 @@ footer .footer-content {
   transition: 800ms ease;
   overflow-x: scroll;
 }
+
 @media (max-width: 800px) {
   .blog {
     width: 50%;
