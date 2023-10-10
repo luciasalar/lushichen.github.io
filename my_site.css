@@ -253,6 +253,7 @@ footer .footer-content {
 }
 
 .blog {
+  display: none;
   position: fixed;
   height: 100vh;
   width: 35%;
@@ -262,6 +263,11 @@ footer .footer-content {
   margin-right: -20%;
   transition: 800ms ease;
   overflow-x: scroll;
+}
+
+.blog-active {
+  display: flex;
+  /*or "block", depending on your layout*/
 }
 
 @media (max-width: 800px) {
