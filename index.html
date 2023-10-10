@@ -22,7 +22,7 @@
     <div class="nav">
       <li><a class="waves-effect waves-light" href="#design">about</a></li>
       <li><a class="waves-effect waves-light" href="#projects">projects</a></li>
-      <li><a class="waves-effect waves-light" id="blog-trig" href="#0">blog</a></li>
+      <li><a class="waves-effect waves-light" id="blog-trig" href="#blog">blog</a></li>
     </div>
     <div class="land wow animted fadeInUp">
       <div class="content">
@@ -56,7 +56,7 @@
               <h5 class="card-title grey-text text-darken-4">Mental Wellness Chabot</h5><span class="grey-text text-darken-3"></a> AURORA is a sophisticated mental wellness chatbot that utilizes a large language model. It offers users a comprehensive profile, summarizing their interactions with AURORA and tracking their mood fluctuations, while also detecting elevated levels of anxiety or depression symptoms. Our utmost concerns are user safety and the trustworthiness and fairness of the product. With a research team composed of experts in the fields of clinical psychology, machine learning fairness, and large language model, AURORA is also designed to be equitable for users from various cultural backgrounds . </span>
             </div></a><a class="col s12 m6" href="https://www.beckyinkster.com/">
               <div class="card-panel">
-                <h5 class="card-title grey-text text-darken-4">AI Rapper </h5><span class="grey-text text-darken-3">Cambridge professor Becky Insker and I are embarking on a project called Humans Rap Battle against AI, where we aim to create an AI rapper. An esteemed UK rapper has kindly granted us consent to create a 'digital twin' using their own collection of music and lyrics. </span>
+                <h5 class="card-title grey-text text-darken-4">AI Digital Twin </h5><span class="grey-text text-darken-3"> Becky Insker (neuroscientist in Cambridge University), Tunde Olatunji (Founder of Arts Arkade) and I are embarking on a project called Humans Rap Battle against AI. With a rapper's generous permission, we will be developing an "AI digital" twin using their own impressive repertoire of music and lyrics. </span>
               
             </div></a><a class="col s12 m6" href="https://ojs.aaai.org/index.php/ICWSM/article/view/22133">
             <div class="card-panel">
@@ -157,9 +157,19 @@ $('#blog-trig').click(function() {
   $('body').addClass('lock');
 });
 
-$('.overlay').click(function() {
-  $('.blog').removeClass('blog-active');
-  $('.overlay').fadeOut();
-  $('body').removeClass('lock');
+//$('.overlay').click(function() {
+// $('.overlay, #design, #projects').click(function() {
+//   $('.blog').removeClass('blog-active');
+//   $('.overlay').fadeOut();
+//   $('body').removeClass('lock');
+// });
+
+$('#design, #projects, .overlay').click(function(event) {
+  event.stopPropagation();
+  if ($('.blog').hasClass('blog-active')) {
+    $('.blog').removeClass('blog-active');
+    $('.overlay').fadeOut();
+    $('body').removeClass('lock');
+  }
 });
 </script>
