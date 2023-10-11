@@ -231,23 +231,19 @@ a:hover {
   font-style: italic;
 }
 
-.codeblock {
-    display: block;
-    white-space: pre;
-    background-color: #cccaca;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    overflow: auto; 
-    /* font-family: "Open Sans", sans-serif; */
-    color:rgb(75, 100, 75);
-    font-size: 12px; 
-  }
+
   
 
-/* code {
-  display: block;
-  padding: 10px;
-  margin: 10px;
-  font-family: Georgia;
-}  */
+code {
+    white-space: pre;
+    background-color: #FDE5EC;
+    padding: 10px;
+    border-radius: 5px;
+    display: block;
+    padding: 20px;
+    margin: 10px;
+    font-size: 14px; 
+    font-family: sans-serif;
+    overflow: auto; 
+    color:#57375D;
+} 
