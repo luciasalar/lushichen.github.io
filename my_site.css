@@ -347,3 +347,23 @@ footer .footer-content {
   color: #fff;
   font-size: 1.25em;
 }
+/* 
+code {
+  display: block;
+  background-color: #f4f4f4;
+  padding: 10px;
+  margin: 10px 0;
+  font-family: Consolas, monospace;
+} */
+
+
+.codeblock {
+  display: block;
+  white-space: pre;
+  background-color: #5e5d5d;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  overflow: auto; 
+  font-family: monospace; 
+}

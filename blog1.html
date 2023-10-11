@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./blog.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <meta charset="UTF-8">
+  <title>How to retrieve all the tweets of a Twitter account?</title>
+</head>
+
+<body>
+
+    <header>
+		<h1 class="page-title">How to retrieve all the tweets of a Twitter account?</h1>
+</header>
+<main>
+	<!-- <div class="intro">
+		<h1 class="post-title">How about an interesting post title with and initial-letter because we can</h1>
+	</div> -->
+	<div class="byline">
+		<p class="meta">by Lucia Chen published June-21-2021</p>
+	</div>
+	<div class="social">
+		<a class="twitter-share-button"
+  href="https://twitter.com/intent/tweet?text=Hello%20world"
+  data-size="large"><span class="fa fa-twitter"></span></a>
+		
+		<a href="https://facebook.com/#"><span class="fa fa-facebook-square"></span></a>
+
+		<a href="https://plus.google.com/#"><span class="fa fa-google-plus-square"></span></a>
+	</div>
+	
+	<!-- <div class="summary">
+		<h3>TL;DR Summary</h3>
+		<p>Let's pretend this is a short summary of this post content.</p>
+	</div>
+	 -->
+	<div class="post-content">
+		<!-- CSS Grid Layout browser support text -->
+		<p>The first version of Twitter API only allows us to retrieve 3200 tweets from each account. Now the good news is academic API2 allows us to retrieve all the tweets from an account.</p>
+  <p>Check here to see the new API <a href="https://developer.twitter.com/en/products/twitter-api/academic-research">https://developer.twitter.com/en/products/twitter-api/academic-research</a></p>
+  <p>The new API introduces plenty of search methods.</p>
+  <p>See what's new in here: <a href="https://developer.twitter.com/en/docs/twitter-api/early-access">https://developer.twitter.com/en/docs/twitter-api/early-access</a></p>
+  <p>One of the coolest functions I've tried is to retrieve timeline status beyond the limit of 3200 tweets. My way of doing it is to search the recent 10 tweets, record the earliest tweet id you retrieve, and do a search of 500 tweet using the earliest tweet id as the cut off. Then you repeat this process N times until you collect all the tweets from the account.</p>
+
+  <div class="codeblock">
+  <pre><code>def search_twitter(self):
+        """Define search twitter function."""
+
+        headers = {"Authorization": "Bearer {}".format(self.bearer_token)}
+
+        url = "https://api.twitter.com/2/tweets/search/all?query={}&{}&max_results=500&until_id={}".format(
+            self.query, self.tweet_fields, self.until_id)
+        response = requests.request("GET", url, headers=headers)
+
+       #Here I define if an error occur, my script will stop for 1 minute
+        if response.status_code != 200:
+            time.sleep(60) 
+        return response.json()</code></pre>
+      </div>
+
+  <p>Suppose you want to collect all the tweets from a list of handles, for each handle...</p>
+
+  <pre><code>def search_twitter_recent(self, bearer_token, query, tweet_fields):
+        ...
+        return response.json()</code></pre>
+
+  <p>We obtain the tweetid from the earliest tweet...</p>
+
+  <pre><code>def big_loop(self):
+      ...
+      #sleep 10s</code></pre>
+
+  <p>Now you should be able to get all the tweets from an account...</p>
+
+  <p>For full version of the code, check <a href="https://github.com/luciasalar/collect-tweets/blob/master/collect_tweets_api2.py">this</a>.</p>
+
+	</div>
+</main>
+</body>
+</html>
