@@ -230,3 +230,24 @@ a:hover {
   font-size: calc(0.7rem + 0.25vw);
   font-style: italic;
 }
+
+.codeblock {
+    display: block;
+    white-space: pre;
+    background-color: #cccaca;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    overflow: auto; 
+    /* font-family: "Open Sans", sans-serif; */
+    color:rgb(75, 100, 75);
+    font-size: 12px; 
+  }
+  
+
+/* code {
+  display: block;
+  padding: 10px;
+  margin: 10px;
+  font-family: Georgia;
+}  */

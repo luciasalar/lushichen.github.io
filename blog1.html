@@ -43,9 +43,13 @@
   <p>Check here to see the new API <a href="https://developer.twitter.com/en/products/twitter-api/academic-research">https://developer.twitter.com/en/products/twitter-api/academic-research</a></p>
   <p>The new API introduces plenty of search methods.</p>
   <p>See what's new in here: <a href="https://developer.twitter.com/en/docs/twitter-api/early-access">https://developer.twitter.com/en/docs/twitter-api/early-access</a></p>
+
+
   <p>One of the coolest functions I've tried is to retrieve timeline status beyond the limit of 3200 tweets. My way of doing it is to search the recent 10 tweets, record the earliest tweet id you retrieve, and do a search of 500 tweet using the earliest tweet id as the cut off. Then you repeat this process N times until you collect all the tweets from the account.</p>
 
-  <div class="codeblock">
+  <p> Step 1, register your academic API account. Define a search tweet function parsing your bearer token. You can change max_result to define the number of tweets you want to collect</p>
+
+
   <pre><code>def search_twitter(self):
         """Define search twitter function."""
 
@@ -59,19 +63,70 @@
         if response.status_code != 200:
             time.sleep(60) 
         return response.json()</code></pre>
-      </div>
+ 
 
-  <p>Suppose you want to collect all the tweets from a list of handles, for each handle...</p>
+  <p>Step 2, Suppose you want to collect all the tweets from a list of handles, for each handle, you  collect the recent 10 tweet. Each tweet has a timestamp, we rank the tweets according to the timestamps.</p>
 
   <pre><code>def search_twitter_recent(self, bearer_token, query, tweet_fields):
-        ...
+
+        """Define search recent twitter function."""
+
+        #curl "https://api.twitter.com/2/tweets/search/all?query=from%3Atwitterdev&max_results=500&start_time=2020-01-01T00%3A00%3A00Z&end_time=2020-03-31T11%3A59%3A59Z"
+
+        headers = {"Authorization": "Bearer {}".format(self. bearer_token)}
+
+        url = "https://api.twitter.com/2/tweets/search/recent?query={}&{}&max_results=10".format(query, self.tweet_fields)
+        response = requests.request("GET", url, headers=headers) #here you can change the max_result to define the number of tweets you want
+
+        print(response.status_code)
+
+        if response.status_code != 200:
+            raise Exception(response.status_code, response.text)
         return response.json()</code></pre>
 
-  <p>We obtain the tweetid from the earliest tweet...</p>
+ 
+
+      Step 3, We obtain the tweetid from the earliest tweet (ranked by timestamp) among the recent 10 tweet, then we run the search_twitter function and set the until id to the earliest tweetid. In this step, we collect the 500 tweets before the earliest tweet.</p>
+
+    <p>
+      We repeat this process in a loop for N iterations. We don't know how many iterations we need in order to obtain all the tweets from a user. To solve this problem, we can retrieve the number of tweets of an account using the status_timeline function, and define loop_num = (status_num//500) + 1 
+    </p>
 
   <pre><code>def big_loop(self):
-      ...
-      #sleep 10s</code></pre>
+        handles = self.read_handles(self.handlesFile)
+
+        for handle, status in zip(handles['screen_name'], handles['statuses_count']):
+            # get handle name and pass it to query
+            query = 'from:{}'.format(handle)
+
+            #define how many loops we need in order to collect all the tweets of an account
+            loop_num = (status//500) + 1 
+
+            #get the most recent 10 tweets of an account
+            search_result = self.search_twitter_recent(self.bearer_token, query, self.tweet_fields)
+
+            # here you can also manually reset the id
+            print(query, loop_num, until_id)
+            time.sleep(5) #check rate limit to adjust this
+            #https://developer.twitter.com/en/docs/twitter-api/rate-limits#v2-limits 
+            
+
+            # loop everything
+        
+            for i in range(1, loop_num + 1):
+
+                print('this is the {} loop'.format(i))
+                # collect tweets using query, for each loop, we get 500 tweets
+
+                search_result = c.search_twitter()
+              
+                print('search id:', search_result['data'][-1]['id'])
+
+                #set the new until_id as the last one on the list, next loop will continue up to this id
+                new_until_id = search_result['data'][-1]['id']
+                until_id = new_until_id
+
+                time.sleep(5)#sleep 10s</code></pre>
 
   <p>Now you should be able to get all the tweets from an account...</p>
 
