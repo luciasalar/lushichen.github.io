@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./blog.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <meta charset="UTF-8">
+  <title>Machine Learning Career Path of Chinese Political Leaders</title>
+</head>
+
+<body>
+
+    <header>
+		<h1 class="page-title">Machine Learning Career Path of Chinese Political Leaders</h1>
+</header>
+
+
+<main>
+
+    <div class="byline">
+		<p class="meta">by Lucia Chen published Sept-24-2018</p>
+	</div>
+	<div class="social">
+		<a class="twitter-share-button"
+  href="https://twitter.com/intent/tweet?text=Hello%20world"
+  data-size="large"><span class="fa fa-twitter"></span></a>
+		
+		<a href="https://facebook.com/#"><span class="fa fa-facebook-square"></span></a>
+
+		<a href="https://plus.google.com/#"><span class="fa fa-google-plus-square"></span></a>
+	</div>
+   
+    <div class="post-content">
+        <h1>Exploring Chinese Political Elite Database (CPED)</h1>
+    <p>Recently JunYan Jiang published a Chinese Political Elite Database (CPED), which contains demographic and career information of Chinese political leaders from multiple levels. For more information regarding the dataset, visit: <a href="https://www.junyanjiang.com/data.html">https://www.junyanjiang.com/data.html</a>. For the full code, visit: <a href="https://github.com/luciasalar/government_officials.git">https://github.com/luciasalar/government_officials.git</a></p>
+
+    <h2>Dataset information</h2>
+    <p>The CPED includes various details such as name, gender, ethnicity, birthday, birthplace, education back ground, whether the person join the army, whether the person has been expelled from the Communist Party of China(CPC), current position, whether the person commits a crime, when does the person join CPC, how long does the person work in the government, when and where does the person been relocated, job grade, name of the position and so on.</p>
+
+    <h2>Data Processing</h2> 
+    <p>Before any learning, some steps were done to process the dataset:</p>
+    <ol>
+     <li>Convert categorical variables to dummy variables.</li>
+     <li>Extend some variables based on the existing variables on the dataset.</li>
+     <li>Recode the location of where they worked.</li>
+    </ol>
+
+    <h2>Cluster Analysis</h2> 
+    <p>In order to know what variables can predict the highest position of a government official, a cluster analysis on the variables was conducted. The used method was a model based clustering which has an advantage of adaptable to Gaussian with non-spherical variance.</p>
+
+    <p>After several attempts, it was found that all the extended variables generated and the job grade produced 9 clusters. Adding other variables, especially the location, only confounds the cluster results.</p>
+
+    <pre><code>
+
+
+
+    Best BIC values:
+                EEV,9     EEV,8     EEV,7
+    BIC      -40592.79 -44475.21 -48851.12
+    BIC diff      0.00  -3882.42  -8258.33
+    $mean
+                                [,1]       [,2]       [,3]         [,4]        [,5]        [,6]       [,7]
+    central_freq          4.32237099  8.1333333  3.2921195 6.979184e-01  0.64672483  4.67187223  7.3296655
+    relocate_freq        12.61755297 19.6000000 18.5603415 1.779856e+01 13.79750420 19.30010818 19.5700083
+    nat_ins_relo        4.19084397  9.6000000  6.4393863 3.455870e+00  3.99058070  6.99442958  9.5765742
+    central_relo          0.00000000  1.8333333  0.5695582 6.904707e-04  0.18754764  0.33255111  1.9551820
+    ranking_deputy_director  0.75474248  1.5333333  3.1303437 3.671810e+00  2.48911104  2.07742828  1.5326028
+    ranking_deputy_leader    0.00000000  2.8666667  0.0000000 0.000000e+00  0.00000000  0.06536624  2.0542140
+    ranking_deputy_dept      0.06884181  0.7333333  1.4554218 2.068585e+00  1.28341355  1.31928172  0.9915247
+    ranking_vice_minister    2.49509706  3.2333333  3.2460501 5.323188e-01  0.32912791  4.29367926  3.5884937
+    ranking_less_dept        0.61317397  2.0333333  2.7168478 3.333408e+00  2.39241514  2.71185414  2.4306439
+    ranking_no_rank          0.89761799  1.6333333  1.7226345 1.670180e+00  1.90671226  1.70147894  1.6974206
+    ranking_director         2.09337233  1.5333333  4.3141123 3.500887e+00  3.25762003  2.73690397  2.5425752
+    ranking_national_leader  0.00000000  2.3666667  0.0000000 0.000000e+00  0.00000000  0.00000000  0.0000000
+    ranking_dept             0.33755477  1.2666667  1.9749013 2.942800e+00  2.04231632  1.76069380  1.4218369
+    ranking_minister         1.13393696  2.1333333  0.0000000 0.000000e+00  0.00000000  2.63342184  2.4670000
+    gov_working_yrs      34.77427264 89.1850000 52.8895299 5.021180e+01 51.41595474 70.20722067 65.0047612
+    age                  69.76954176 80.0189208 62.9543031 6.287416e+01 64.06984368 74.19215959 75.3007443
+    join_cpc             43.65866150 58.0666667 38.6672922 3.828230e+01 40.33759873 50.62669711 50.1089734
+    join_cpc_age         25.24244381 22.6220278 23.4355524 2.372276e+01 23.57874446 22.83489307 24.5402508
+    freq_change_pos_nor   3.02921911  4.9328471  2.9339499 2.935939e+00  4.01097470  3.75754392  3.4275268
+    central_freq_perce     0.36299367  0.4209026  0.1859861 3.710309e-02  0.04916415  0.25133780  0.3650817
+                                [,8]         [,9]
+    central_freq         10.34535743  0.000000000
+    relocate_freq                19.34634107  6.950475840
+    nat_ins_relo       11.18794437  0.190331466
+    central_relo          0.56318475  0.164688275
+    ranking_deputy_director  1.84379429  0.766288984
+    ranking_deputy_leader    0.06257608  0.000000000
+    ranking_deputy_dept      1.53382976  0.113210760
+    ranking_vice_minister    3.28088365  0.609826329
+    ranking_less_dept        1.31481036  0.081245263
+    ranking_no_rank          1.65582924  0.130124281
+    ranking_director         3.31431693  2.268522452
+    ranking_national_leader  0.00000000  0.000000000
+    ranking_dept             1.74969366  0.277415251
+    ranking_minister         2.27820879  0.006609097
+    gov_working_yrs           47.96463094 17.907235176
+    age                  68.92297628 66.174523443
+    join_cpc               43.81333803 40.977279532
+    join_cpc_age             24.99038289 23.577696437
+    freq_change_pos_nor   2.51541676  3.108479572
+    central_freq_perce      0.53670229  0.000000000
+    </pre></code>
+
+<p>The above table shows all the variables I used in clustering, freq = frequency, nat_ins_relo = relocated by national institute, central_relo = relocated by central government, gov_working_yrs: number of years working in the government, join_cpc: number of years they join CPC; join_cpc_age : age when they join CPC; central_freq : number of times they worked in the central government; freq_change_pos_nor: frequency of being relocated normalized by the number of years they work in the government; central_freq_perce: number of times working in the central government divided by the number of times being relocated. </p>
+
+
+<p>It's hectic work to see what information contained in these groups manually, so I wrote a function to see which cluster has the highest mean score in each variable. We can see that there are a few clusters that are quite important, group 2 contains most national leaders. Let's call it 'the leader group; group 3 has most directors let's call it 'director group', group 4 has most deputy directors and deputy department heads, department heads, lower than department head positions, let's call this group 'department heads'; group 5 contains officials without rankings, let's call it 'no ranking'. group 6 is the 'ministers' group, group 8 contains people who works in the central government most number of times. We can also see that officials in the leader group have highest mean age.  Group 1 contains least high level government officials, officials in group 9 work in the government shortest period of time. Now we know that unsupervised learning managed to learn some patterns in these variables.
+Now let's do a regression and see if these variables can predict the job grade. We selected the highest job grade of each official as the job grade label. We can see that all the variables we selected are significant in the prediction.
+lm(formula = job_grade ~ ., data = reg_fea)</p>
+
+<pre><code>
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.2911 -0.4882 -0.0403  0.4308  5.1570 
+
+Coefficients:
+                     Estimate Std. Error t value Pr(>|t|)    
+(Intercept)          8.198359   0.159396  51.434  < 2e-16 ***
+central_freq         0.098955   0.013897   7.121 1.27e-12 ***
+Freq                -0.052931   0.005458  -9.697  < 2e-16 ***
+nat_ins_relo         0.003095   0.006357   0.487 0.626389    
+central_relo        -0.052582   0.014540  -3.616 0.000303 ***
+time_diff           -0.019530   0.001595 -12.245  < 2e-16 ***
+age                 -0.016151   0.005317  -3.038 0.002398 ** 
+join_cpc            -0.016090   0.005559  -2.895 0.003817 ** 
+join_cpc_age         -0.020595   0.006256  -3.292 0.001004 ** 
+freq_change_pos_nor  0.182062   0.019311   9.428  < 2e-16 ***
+central_freq_per    -2.759989   0.207682 -13.290  < 2e-16 ***
+---
+Signif. codes:  0 *** 0.001 ** 0.01 * 0.05 
+
+Residual standard error: 0.8512 on 3906 degrees of freedom
+Multiple R-squared:  0.4649,	Adjusted R-squared:  0.4635 
+F-statistic: 339.3 on 10 and 3906 DF,  p-value: < 2.2e-16
+</pre></code>
+<p>
+Ok, the final part is machine learning. Here I produce a very very basic svm model with R. I'll do a proper ML with Python on a lazy weekend. The basic model turns our really not bad! First, I recode the job grade to binary, with anyone under the minister level as 0, ministers and national leaders are 1. We get a balanced set of data.
+</p>
+
+<pre><code>
+ 0    1 
+1941 1982
+The F1 score is
+[1] 0.7790393
+
+confusion matrix
+    predictions
+  y   0   1
+  0  477  97
+  1  156 446
+    </code></pre>
+
+
+
+    </div>
+</main>
