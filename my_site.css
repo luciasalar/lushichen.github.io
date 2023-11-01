@@ -187,7 +187,7 @@ body {
 }
 
 h3.about-me {
-  font-weight: 200 !important;
+  font-weight: 300 !important;
   color: #fff;
   margin-top: 0.5em !important;
   text-align: center;
@@ -354,5 +354,5 @@ border-radius: 50%;
 width: 400px;
 height: 400px;
 object-fit: cover;
-margin-bottom: 100px;
+margin-bottom: 400px;
 }
